@@ -285,6 +285,10 @@ vedi con `python3 bot.py analizza --dettagli`.
   Il bot si è fermato prima di inviare la password: cambia rete e riprova.
 - **«La connessione con iCloud si è interrotta»**: riprova; tieni a-Shell
   aperta mentre lavora.
+- **`lg2 clone` chiede username e password**: l'indirizzo ha un errore di
+  battitura (GitHub risponde così a un indirizzo che non esiste). Non scrivere
+  nessuna password: premi Invio due volte a vuoto, poi copia e incolla il
+  comando esatto invece di batterlo a mano.
 - **Il bot resta fermo dopo che hai incollato la password**: succedeva con la
   prima versione (1.0.0). Chiudi a-Shell dal multitasking (scorri verso
   l'alto dal fondo dello schermo e spingi via la sua finestra), riaprila e
