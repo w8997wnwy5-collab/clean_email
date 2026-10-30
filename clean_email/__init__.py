@@ -5,4 +5,4 @@ verificato), classifica la posta leggendo le sole intestazioni e applica le
 regole che l'utente ha approvato. Usa solo la libreria standard di Python.
 """
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"

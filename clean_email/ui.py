@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import getpass
+import os
+import platform
 import sys
 
 YES = {"s", "si", "sì", "y", "yes", "ok"}
@@ -30,7 +32,29 @@ def ask(prompt: str, default: str = "") -> str:
     return answer or default
 
 
+def can_hide_input() -> bool:
+    """Whether getpass can read a password without showing it.
+
+    a-Shell's Python fakes the terminal calls getpass relies on: the fake
+    switches the terminal to raw mode, Enter arrives as a carriage return and
+    getpass waits for a newline forever. Other iPhone terminals have no real
+    terminal either; only Pythonista replaces getpass with its own secure prompt.
+    """
+    if os.environ.get("TERM_PROGRAM") == "a-Shell" or os.environ.get("APPNAME", "").startswith("a-Shell"):
+        return False
+    if sys.platform == "ios" or platform.machine().startswith(("iPhone", "iPad", "iPod")):
+        try:
+            import console  # type: ignore[import-not-found]  # Pythonista
+        except ImportError:
+            return False
+        return hasattr(console, "secure_input")
+    return True
+
+
 def ask_secret(prompt: str) -> str:
+    if not can_hide_input():
+        say("(Qui la password resta visibile mentre la incolli: su iPhone è normale.)")
+        return ask(prompt)
     try:
         return getpass.getpass(prompt)
     except EOFError:

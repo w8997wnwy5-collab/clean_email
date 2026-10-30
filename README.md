@@ -85,8 +85,10 @@ pagina.
    ```
 
 3. Al primo avvio il bot chiede il tuo indirizzo iCloud e la password per le
-   app (incollala). Prova subito la connessione e, se va, ti chiede se
-   salvarla sul telefono così non devi reinserirla.
+   app (incollala). In a-Shell la password resta visibile mentre la incolli:
+   è normale, l'app non permette di nasconderla. Il bot prova subito la
+   connessione e, se va, ti chiede se salvarla sul telefono così non devi
+   reinserirla.
 
 Le volte successive apri a-Shell e scrivi solo:
 
@@ -283,6 +285,11 @@ vedi con `python3 bot.py analizza --dettagli`.
   Il bot si è fermato prima di inviare la password: cambia rete e riprova.
 - **«La connessione con iCloud si è interrotta»**: riprova; tieni a-Shell
   aperta mentre lavora.
+- **Il bot resta fermo dopo che hai incollato la password**: succedeva con la
+  prima versione (1.0.0). Chiudi a-Shell dal multitasking (scorri verso
+  l'alto dal fondo dello schermo e spingi via la sua finestra), riaprila e
+  aggiorna il bot con i tre comandi del [punto 2](#2-installa-il-bot-sulliphone).
+  Il menu deve mostrare «versione 1.0.1» o successiva.
 - **Una regola ha sbagliato**: menu **9) Annulla l'ultima operazione**. Le
   mail finite nel Cestino restano recuperabili per 30 giorni anche dall'app
   Mail.
