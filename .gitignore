@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.DS_Store
+
+# Credentials and personal data never belong in this public repository.
+.env
+.env.*
+account.json
+password
+*.registro.json
+regole*.json

@@ -1,0 +1,42 @@
+# Applies the rules saved in the mailbox, every hour or on demand.
+#
+# The repository is public, and so are these logs: the bot prints only
+# numbers here. What it moved, and why, goes to the «Registro del bot»
+# message in the «Bot Email» folder of the mailbox.
+name: Regole email
+
+on:
+  schedule:
+    - cron: "23 * * * *" # every hour at minute 23 (GitHub may run it later)
+  workflow_dispatch:
+    inputs:
+      prova:
+        description: "Solo prova: conta le mail senza spostarle"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: regole-email
+  cancel-in-progress: false
+
+jobs:
+  regole:
+    # Hourly runs start only after you set the repository variable
+    # PULIZIA_AUTOMATICA to «si»; «Run workflow» always works.
+    if: github.event_name == 'workflow_dispatch' || vars.PULIZIA_AUTOMATICA == 'si'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Applica le regole
+        env:
+          ICLOUD_EMAIL: ${{ secrets.ICLOUD_EMAIL }}
+          ICLOUD_APP_PASSWORD: ${{ secrets.ICLOUD_APP_PASSWORD }}
+          TZ: ${{ vars.FUSO_ORARIO || 'Europe/Zurich' }}
+          PROVA: ${{ inputs.prova && '--prova' || '' }}
+        run: python3 bot.py automatico $PROVA
